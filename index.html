@@ -9,9 +9,13 @@
             text-align: center;
             background-color: pink;
             font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
         }
         .container {
             margin-top: 50px;
+            position: relative;
+            z-index: 1;
         }
         img {
             width: 80%;
@@ -31,14 +35,49 @@
             cursor: pointer;
             text-decoration: none;
         }
+        .button.no {
+            background-color: gray;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(-45deg);
+            position: absolute;
+            animation: float 5s infinite ease-in-out;
+        }
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-200px) scale(1.2); opacity: 0.5; }
+            100% { transform: translateY(-400px) scale(1.5); opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="content">
         <h1>¿Quieres ser mi San Valentín? ❤️</h1>
         <img src="C5A5709F-E11F-43E9-AF64-FBB53E343320.jpg" alt="Imagen de San Valentín">
         <br>
-        <a class="button" href="CartaSanValentin.pdf" download>Descargar Carta</a>
+        <button class="button" onclick="descargarCarta()">Sí</button>
+        <button class="button no" onclick="preguntarDeNuevo()">No</button>
     </div>
     <audio id="musica" loop>
         <source src="El David - La quiero a morir.mp3" type="audio/mp3">
@@ -48,6 +87,30 @@
         document.addEventListener("click", function() {
             document.getElementById("musica").play();
         });
+
+        function preguntarDeNuevo() {
+            document.getElementById("content").innerHTML = `
+                <h1>¿Estás segura? 🥺</h1>
+                <button class="button" onclick="descargarCarta()">Sí</button>
+                <button class="button no" onclick="preguntarDeNuevo()">No</button>
+            `;
+        }
+
+        function descargarCarta() {
+            window.location.href = "CartaSanValentin.pdf";
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 500);
     </script>
 </body>
 </html>
