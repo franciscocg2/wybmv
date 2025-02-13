@@ -87,10 +87,10 @@
         }
         @keyframes moveText {
             0% { transform: translate(0, 0); }
-            25% { transform: translate(100px, 100px); }
-            50% { transform: translate(200px, 0); }
-            75% { transform: translate(300px, 100px); }
-            100% { transform: translate(400px, 0); }
+            25% { transform: translate(200px, 150px); }
+            50% { transform: translate(400px, 0); }
+            75% { transform: translate(200px, -150px); }
+            100% { transform: translate(0, 0); }
         }
         .reaction {
             font-size: 40px;
@@ -134,7 +134,7 @@
             document.getElementById("content").innerHTML = `
                 <h1>¿Estás segura? 🥺</h1>
                 <button class="button" onclick="confirmarSeguridad()">Sí</button>
-                <button class="button no" onclick="descargarCarta()">No</button>
+                <button class="button no" onclick="mostrarNuevaPregunta()">No</button>
             `;
         }
 
@@ -149,15 +149,15 @@
             }, 5000);
         }
 
-        function descargarCarta() {
+        function mostrarNuevaPregunta() {
             document.getElementById("content").innerHTML = `
-                <h1 class="reaction">¡Oh no! 😢</h1>
-                <img src="C5A5709F-E11F-43E9-AF64-FBB53E343320.jpg" alt="Imagen de San Valentín" class="slide-in">
-                <button class="button" onclick="openCarta()">Abrir Carta</button>
+                <h1>Entonces, ¿quieres ser mi San Valentín? ❤️</h1>
+                <button class="button" onclick="descargarCarta()">Sí</button>
+                <button class="button no" onclick="preguntarDeNuevo()">No</button>
             `;
         }
 
-        function openCarta() {
+        function descargarCarta() {
             window.location.href = "CartaSanValentin.pdf";
         }
 
