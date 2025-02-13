@@ -40,9 +40,14 @@
         <br>
         <a class="button" href="CartaSanValentin.pdf" download>Descargar Carta</a>
     </div>
-    <audio autoplay loop>
+    <audio id="musica" loop>
         <source src="El David - La quiero a morir.mp3" type="audio/mp3">
         Tu navegador no soporta el audio.
     </audio>
+    <script>
+        document.addEventListener("click", function() {
+            document.getElementById("musica").play();
+        });
+    </script>
 </body>
 </html>
