@@ -69,6 +69,20 @@
             50% { transform: translateY(-200px) scale(1.2); opacity: 0.5; }
             100% { transform: translateY(-400px) scale(1.5); opacity: 0; }
         }
+        .moving-text {
+            position: absolute;
+            font-size: 30px;
+            color: red;
+            font-weight: bold;
+            animation: moveText 5s infinite ease-in-out;
+        }
+        @keyframes moveText {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(100px, 100px); }
+            50% { transform: translate(200px, 0); }
+            75% { transform: translate(300px, 100px); }
+            100% { transform: translate(400px, 0); }
+        }
     </style>
 </head>
 <body>
@@ -91,9 +105,20 @@
         function preguntarDeNuevo() {
             document.getElementById("content").innerHTML = `
                 <h1>¿Estás segura? 🥺</h1>
-                <button class="button" onclick="descargarCarta()">Sí</button>
-                <button class="button no" onclick="preguntarDeNuevo()">No</button>
+                <button class="button" onclick="confirmarSeguridad()">Sí</button>
+                <button class="button no" onclick="descargarCarta()">No</button>
             `;
+        }
+
+        function confirmarSeguridad() {
+            let text = document.createElement('div');
+            text.classList.add('moving-text');
+            text.innerText = '¿Estás segurísima?';
+            document.body.appendChild(text);
+
+            setTimeout(() => {
+                text.remove();
+            }, 5000);
         }
 
         function descargarCarta() {
